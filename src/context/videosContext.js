@@ -35,7 +35,7 @@ const VideosContextProvider = ({children}) => {
        }
     },[toggleTab, videos])
     
-    return (<VideosContext.Provider value={{videos, setVideos , setToggleTab, filteredVideos , toggleTab}}>{children}</VideosContext.Provider>)
+    return (<VideosContext.Provider value={{videos, setVideos , setToggleTab, filteredVideos , toggleTab , setFilteredVideos }}>{children}</VideosContext.Provider>)
 }
 
 export { useVideos , VideosContextProvider }
