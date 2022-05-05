@@ -22,8 +22,14 @@ export function SingleVideo() {
        frameborder="0" 
        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
        </iframe>
-       <div className='video-title'>{video.title}</div>
-       <div className='video-info'> 232434 views - Apr 25, 2022</div>
+       <div className='single-video-title'>{video.title}</div>
+       <div className='video-info'> 232434 views - Apr 25, 2022 
+       <span className='video-btns'>
+         <span className='video-like-btn'><i class="fa-solid fa-thumbs-up"></i> Like</span>
+         <span className='video-dis-like-btn'><i class="fa-solid fa-thumbs-down"></i> Dislike</span>
+         <span className='video-watch-later-btn'><i class="fa-solid fa-clock"></i> Add To Watch Later</span>
+         <span className='video-play-list-btn'><i class="fa-solid fa-list-check"></i> Add To Play List</span>
+         </span></div>
        </div>
     </div>
     </>

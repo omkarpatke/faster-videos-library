@@ -1,3 +1,7 @@
+:root{
+    --hover-color: #e4e1e1;
+}
+
 .single-video-page-container{
     margin-top: 4rem;
     display: flex;
@@ -15,12 +19,43 @@
 }
 
 .embeded-video{
-    width: 50vw;
+    width: 55vw;
     height: 60vh;
 }
 
-.video-title{
+.single-video-title{
     font-size: 1.4rem;
     font-weight: 600;
     margin-top: 1rem;
+}
+
+.video-info{
+    margin-top: 10px;
+}
+
+.video-btns{
+    display: inline-flex;
+    gap: 1.5rem;
+    margin-left: 3rem;
+}
+
+.video-like-btn ,.video-dis-like-btn,.video-watch-later-btn,.video-play-list-btn{
+    cursor: pointer;
+    padding: 5px 8px;
+}
+
+.video-like-btn:hover{
+    background-color: var(--hover-color);
+}
+
+.video-dis-like-btn:hover{
+    background-color: var(--hover-color);
+}
+
+.video-watch-later-btn:hover{
+    background-color: var(--hover-color);
+}
+
+.video-play-list-btn:hover{
+    background-color: var(--hover-color);
 }
