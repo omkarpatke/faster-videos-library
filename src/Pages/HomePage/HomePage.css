@@ -1,0 +1,10 @@
+.page-container{
+    display: flex;
+    text-align: initial;
+    margin-top: 4rem;
+    width: 100vw;
+}
+
+.home-section{
+    width: 100vw;
+}

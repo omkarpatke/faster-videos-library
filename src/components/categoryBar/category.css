@@ -1,0 +1,29 @@
+:root{
+    --bg-color: #c4c4c4;
+    --category-color:#e7e2e2;
+    --border-color : #d7d2d2;
+}
+
+.catergories{
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    height: 3.1rem;
+    gap: 10px;
+}
+
+.category{
+    padding: 3px 7px;
+    border-radius: 2rem;
+    background-color: var(--category-color);
+    cursor: pointer;
+}
+
+.category:hover{
+    transition: .3s all ease-in;
+    background-color: var(--bg-color);
+}
+
+.border-bottom{
+    border-bottom: 1px solid var(--border-color);
+}

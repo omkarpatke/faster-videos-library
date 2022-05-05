@@ -1,0 +1,32 @@
+:root{
+    --sidebar-link-color: #e4e1e1;
+}
+
+.sidebar-links{
+    display: flex;
+    flex-direction: column;
+    text-align: initial;
+    height: 95vh;
+    min-width: 15rem;
+    gap: 5px;
+}
+
+.sidebar-link{
+    text-decoration: none;
+    font-size: 1.1rem;
+    cursor: pointer;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    padding-left: 1rem;
+    width: 14rem;
+}
+
+.sidebar-link:hover{
+    background-color: var(--sidebar-link-color);
+}
+
+.link-content{
+    padding-left: 10px;
+}
+

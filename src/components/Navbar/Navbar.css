@@ -1,0 +1,43 @@
+.navbar{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 4rem;
+    top: 0;
+    width: 100%;
+    position: fixed;
+    background-color: var(--primary-color);
+}
+
+.brand-logo{
+    font-size: 2rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--white-color);
+}
+
+.search-input{
+    width: 25rem;
+    height: 2.3rem;
+    padding: 0 5px;
+    font-size: 1.1rem;
+    position: absolute;
+}
+
+.search-icon{
+    position: relative;
+    left: 6rem;
+    cursor: pointer;
+}
+
+.search-icon:hover{
+    transform: scale(1.1);
+    transition: .4s all ease-in-out;
+}
+
+.login-link , .logout-btn{
+    color: var(--white-color);
+    text-decoration: none;
+    font-size: 1.3rem;
+    cursor: pointer;
+}
