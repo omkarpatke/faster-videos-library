@@ -10,7 +10,9 @@ const useVideos = () => useContext(VideosContext);
 
 const VideosContextProvider = ({children}) => {
     const [videos , setVideos] = useState([]);
-
+    const [toggleTab , setToggleTab] = useState('All');
+    const [filteredVideos , setFilteredVideos] = useState([]);
+    
     useEffect(() => {
         const fetchData = async() => {
         try{
@@ -23,8 +25,17 @@ const VideosContextProvider = ({children}) => {
     }
     fetchData();
     },[]);
+
+    useEffect(() => {
+       if(toggleTab === 'All'){
+           setFilteredVideos(videos);
+       }else{
+           setFilteredVideos(videos.filter(item => item.categoryName === toggleTab ));
+           
+       }
+    },[toggleTab, videos])
     
-    return (<VideosContext.Provider value={{videos,setVideos}}>{children}</VideosContext.Provider>)
+    return (<VideosContext.Provider value={{videos, setVideos , setToggleTab, filteredVideos , toggleTab}}>{children}</VideosContext.Provider>)
 }
 
 export { useVideos , VideosContextProvider }

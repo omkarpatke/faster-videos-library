@@ -4,8 +4,7 @@ import { useVideos } from '../../context/index';
 import './HomePage.css';
 
 export function HomePage() {
-  const { videos } = useVideos();
-  console.log(videos)
+  const { filteredVideos } = useVideos();
   return (
     <div className='page-container'>
     <SideBar />
@@ -13,7 +12,7 @@ export function HomePage() {
     <CategoryBar />
     <div className='homePage-container'>
     <div className='videos-container'>
-     {videos.map((video) => (
+     {filteredVideos.map((video) => (
        <div key={video._id} className='video'>
          <img src={video.image} alt="videoImg" className='video-img' />
          <div className='video-info-container'>
