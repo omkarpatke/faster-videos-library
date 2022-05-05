@@ -1,0 +1,26 @@
+.single-video-page-container{
+    margin-top: 4rem;
+    display: flex;
+}
+
+.video-card{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 1rem;
+    min-height: 100vh;
+    text-align: initial;
+    background-color:var(--bg-color);
+    width: 100%;
+}
+
+.embeded-video{
+    width: 50vw;
+    height: 60vh;
+}
+
+.video-title{
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-top: 1rem;
+}
