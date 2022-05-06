@@ -1,5 +1,5 @@
 import "./App.css";
-import { Navbar } from "./components/index";
+import { Navbar, RequiresAuth } from "./components/index";
 import Mockman from "mockman-js";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -17,11 +17,11 @@ function App() {
         <Route path='/' element={<HomePage/>} />
         <Route path='/login' element={<SignIn />} />
         <Route path='/sign-up' element={<SignUp />} />
-        <Route path='/likes' element={<Likes />} />
-        <Route path='/history' element={<History />} />
-        <Route path='/watch-later' element={<WatchLater />} />
-        <Route path='/playlist' element={<PlayList />} />
-        <Route path='/videos/:id' exact element={<SingleVideo />} />
+        <Route path='/likes' element={<RequiresAuth><Likes /></RequiresAuth>} />
+        <Route path='/history' element={<RequiresAuth><History /></RequiresAuth>} />
+        <Route path='/watch-later' element={<RequiresAuth><WatchLater /></RequiresAuth>} />
+        <Route path='/playlist' element={<RequiresAuth><PlayList /></RequiresAuth>} />
+        <Route path='/videos/:id' exact element={<RequiresAuth><SingleVideo /></RequiresAuth>} />
         <Route path='/mock' element={<Mockman />} />
       </Routes>
       <ToastContainer 
