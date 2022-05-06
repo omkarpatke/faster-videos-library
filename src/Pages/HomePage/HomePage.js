@@ -3,9 +3,18 @@ import { SideBar, CategoryBar } from '../../components/index';
 import { useVideos } from '../../context/index';
 import './HomePage.css';
 import { Link } from 'react-router-dom';
+import { addVideoInHistory } from '../../api-calls/api-calls';
+import { useHistoryContext } from '../../context/HistoryContext';
 
 export function HomePage() {
-  const { videos } = useVideos();
+  const { videos  } = useVideos();
+  const { historyVideosDispatch } = useHistoryContext();
+
+
+  const addVideoToHistory = async(video) => {
+    const response = await addVideoInHistory(video);
+    historyVideosDispatch({type:'HISTORY_VIDEO', payload:response});
+  }
   
   return (
     <div className='page-container'>
@@ -16,7 +25,7 @@ export function HomePage() {
     <div className='videos-container'>
      {videos.map((video) => (
        <div key={video._id} className='video'>
-         <Link to={`/videos/${video._id}`}><img src={video.image} alt="videoImg" className='video-img' /></Link>
+         <Link to={`/videos/${video._id}`} onClick={() => addVideoToHistory(video)}><img src={video.image} alt="videoImg" className='video-img' /></Link>
          <div className='video-info-container'>
          <div className="video-title">{video.title}</div>
          <div className='video-info'>270k Views |  8 months ago  <span className='options'><i className="fa-solid fa-ellipsis-vertical"></i></span></div>

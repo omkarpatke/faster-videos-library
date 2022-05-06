@@ -8,13 +8,17 @@
     min-height: 100vh;
 }
 
-/* .like-video-img{
-    position: relative;
-} */
-
 .dislike-btn{
     position: relative;
     bottom: 11rem;
     left: 17rem;
     font-size: 1.1rem;
+}
+
+.primary-btn{
+    font-size: 1.2rem;
+    border-radius: 10px;
+    padding: 5px 8px;
+    margin-left: 50rem;
+    cursor: pointer;
 }
