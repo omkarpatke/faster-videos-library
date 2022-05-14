@@ -68,4 +68,32 @@ const removeAllHistory = async() => {
         console.error(err);
     }
 }
-export { likeVideo, removeLikeVideo, addVideoInHistory, removeHistoryVideo, removeAllHistory };
+
+const addToWatchLater = async(video) => {
+    try {
+        const response = await axios.post(`/api/user/watchlater`, { video }, { headers });
+        return { watchLaterVideos : response}
+    }
+    catch(err){
+        console.error(err);
+    }
+}
+
+const removeFromWatchLater = async(video) => {
+    try {
+        const response = await axios({
+            method: "delete",
+            url: `/api/user/watchlater/${video._id}`,
+            headers: headers ,
+            data: {
+              product: video
+            },
+          });
+          return { watchLaterVideos : response}
+    } catch (err) {
+        console.error(err);
+    }
+}
+
+
+export { likeVideo, removeLikeVideo, addVideoInHistory, removeHistoryVideo, removeAllHistory , addToWatchLater , removeFromWatchLater };

@@ -1,15 +1,28 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { likeVideo , removeLikeVideo } from '../../api-calls/api-calls';
+import { addToWatchLater, likeVideo , removeFromWatchLater, removeLikeVideo } from '../../api-calls/api-calls';
 import { SideBar } from '../../components';
-import { useVideos } from '../../context';
+import { useVideos, useWatchlaterContext } from '../../context';
 import './SingleVideo.css';
 
 export function SingleVideo() {
     const URL = "https://www.youtube.com/embed/";
     const { id } = useParams();
     const { videos , setVideos , videoDispatch } = useVideos();
+    const { watchLaterDispatch } = useWatchlaterContext();
     const video  = videos.find( item => item._id === id );
+
+    const addVideoToWatchLater = async(item) => {
+      const response = await addToWatchLater(item);
+      watchLaterDispatch({type: 'WATCHLATER_VIDEO' , payload : response});
+      setVideos(prev => prev.map(prevVideo => prevVideo._id === item._id ? {...prevVideo , watchLater:true} : prevVideo))
+    }
+
+    const removeVideoFromWatchLater = async(item) => {
+      const response = await removeFromWatchLater(item);
+      watchLaterDispatch({type: 'REMOVE_WATCHLATER_VIDEO' , payload : response});
+      setVideos(prev => prev.map(prevVideo => prevVideo._id === item._id ? {...prevVideo , watchLater:false} : prevVideo))
+    }
 
 
     const addLikeVideos = async(item) => {
@@ -25,14 +38,14 @@ export function SingleVideo() {
     }
 
     const addDisLikeVideos = (item) => {
-      console.log('add');
       setVideos(prev => prev.map(prevVideo => prevVideo._id === item._id ? {...prevVideo , isDisliked:true} : prevVideo))
     }
 
     const removeDisLikeVideos = (item) => {
-      console.log('remove');
       setVideos(prev => prev.map(prevVideo => prevVideo._id === item._id ? {...prevVideo , isDisliked:false} : prevVideo))
     }
+
+
     
   return (
     <>
@@ -58,7 +71,11 @@ export function SingleVideo() {
          ? <span className='video-dis-like-btn' onClick={() => removeDisLikeVideos(video)}><i className="fa-solid fa-thumbs-down"></i> Dislike</span>
          : <span className='video-dis-like-btn' onClick={() => addDisLikeVideos(video)}><i className="fa-regular fa-thumbs-down"></i> Dislike</span>
          }
-         <span className='video-watch-later-btn'><i className="fa-solid fa-clock"></i> Add To Watch Later</span>
+         {
+           video.watchLater
+           ? <span className='video-watch-later-btn' onClick={() => removeVideoFromWatchLater(video)}><i className="fa-solid fa-clock"></i> Remove From Watch Later</span>
+           : <span className='video-watch-later-btn' onClick={() => addVideoToWatchLater(video)}><i className="fa-solid fa-clock"></i> Add To Watch Later</span>
+         }
          <span className='video-play-list-btn'><i className="fa-solid fa-list-check"></i> Add To Play List</span>
          </span></div>
        </div>
