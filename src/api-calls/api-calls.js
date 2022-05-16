@@ -95,5 +95,61 @@ const removeFromWatchLater = async(video) => {
     }
 }
 
+// playlist functions
+const createPlayList = async(playlistTitle) => {
+    try {
+        const response = await axios.post(`/api/user/playlists`, { playlist: {title: playlistTitle } }, { headers });
+        return { playlist : response }
+    }
+    catch(err){
+        console.error(err);
+    }
+}
 
-export { likeVideo, removeLikeVideo, addVideoInHistory, removeHistoryVideo, removeAllHistory , addToWatchLater , removeFromWatchLater };
+const getPlayList = async() => {
+    try {
+        const response = await axios.get(`/api/user/playlists`, { headers });
+        return { playlist : response }
+    }
+    catch(err){
+        console.error(err);
+    }
+}
+
+const addVideoToPlaylist = async(video , playlistId) => {
+    try {
+        const response = await axios.post(`/api/user/playlists/${playlistId}`, {video} , { headers });
+        return { playlist : response }
+    }
+    catch(err){
+        console.error(err);
+    }
+}
+
+const removeVideoFromPlaylist = async(playlistId , videoId) => {
+    try {
+        const response = await axios.delete(`/api/user/playlists/${playlistId}/${videoId}`, { headers });
+        return { playlist : response }
+    }
+    catch(err){
+        console.error(err);
+    }
+}
+
+const removePlayList = async(playlistId) => {
+    try {
+        const response = await axios.delete(`/api/user/playlists/${playlistId}`, { headers });
+        return { playlist : response }
+    }
+    catch(err){
+        console.error(err);
+    }
+}
+
+
+
+
+
+
+
+export {removePlayList, removeVideoFromPlaylist , addVideoToPlaylist, likeVideo, removeLikeVideo, addVideoInHistory, removeHistoryVideo, removeAllHistory , addToWatchLater , removeFromWatchLater, createPlayList, getPlayList };

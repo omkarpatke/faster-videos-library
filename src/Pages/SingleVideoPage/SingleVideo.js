@@ -1,16 +1,48 @@
-import React from 'react';
+import React , { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { addToWatchLater, likeVideo , removeFromWatchLater, removeLikeVideo } from '../../api-calls/api-calls';
+import { addToWatchLater, addVideoToPlaylist, createPlayList,  likeVideo , removeFromWatchLater, removeLikeVideo, removeVideoFromPlaylist } from '../../api-calls/api-calls';
 import { SideBar } from '../../components';
-import { useVideos, useWatchlaterContext } from '../../context';
+import { useToastContext, useVideos, useWatchlaterContext } from '../../context';
+import { usePlayListContext } from '../../context/PlayListContext';
 import './SingleVideo.css';
 
 export function SingleVideo() {
+    const [showModal , setShowModal ] = useState(false);
+    const [playlistName , setPlaylistName ] = useState('');
     const URL = "https://www.youtube.com/embed/";
     const { id } = useParams();
     const { videos , setVideos , videoDispatch } = useVideos();
     const { watchLaterDispatch } = useWatchlaterContext();
     const video  = videos.find( item => item._id === id );
+    const notify = useToastContext();
+    const {playListState , playListDispatch } = usePlayListContext();
+    let playlists;
+    if(playListState.payload === undefined || playListState.payload === 'none'){
+      playlists = [];
+    }else{
+      playlists = playListState.payload.playlist.data.playlists;
+    }
+
+    const closeModal = () => {
+      setShowModal(false);
+    }
+
+    const showPlaylistModal = () => {
+      setShowModal(true);
+    }
+
+    const createPlaylist = async() => {
+      if(playlistName){
+        const response = await createPlayList(playlistName);
+        playListDispatch({type : 'NEW_PLAYLIST', payload: response})
+
+      }else{
+        notify('Please Enter Playlist Name!',{type:'warning'})
+      }
+      setPlaylistName('');
+    }
+    
+    
 
     const addVideoToWatchLater = async(item) => {
       const response = await addToWatchLater(item);
@@ -45,7 +77,13 @@ export function SingleVideo() {
       setVideos(prev => prev.map(prevVideo => prevVideo._id === item._id ? {...prevVideo , isDisliked:false} : prevVideo))
     }
 
-
+    const updatePlayList = async(e, playlistId , videoData) => {
+      if(e.target.checked){
+         await addVideoToPlaylist(videoData , playlistId); 
+      }else{
+        await removeVideoFromPlaylist(playlistId , videoData._id);       
+      }
+    }
     
   return (
     <>
@@ -76,8 +114,32 @@ export function SingleVideo() {
            ? <span className='video-watch-later-btn' onClick={() => removeVideoFromWatchLater(video)}><i className="fa-solid fa-clock"></i> Remove From Watch Later</span>
            : <span className='video-watch-later-btn' onClick={() => addVideoToWatchLater(video)}><i className="fa-solid fa-clock"></i> Add To Watch Later</span>
          }
-         <span className='video-play-list-btn'><i className="fa-solid fa-list-check"></i> Add To Play List</span>
-         </span></div>
+         <span className='video-play-list-btn' onClick={() => showPlaylistModal()}><i className="fa-solid fa-list-check"></i> Add To Play List</span>
+         </span> 
+         </div> 
+ 
+         {/* modal section */} 
+         <div className={showModal ? 'playlistModal' : 'hidden'}>
+           <h2 className='modal-heading'>Create Playlist</h2>
+           <div>
+           <input 
+           type="text" 
+           placeholder='Playlist Name...' 
+           className='modal-input' 
+           value={playlistName} 
+           onChange={(e) => setPlaylistName(e.target.value)} />
+
+           <button className='playlist-btn' onClick={createPlaylist}>Create Playlist</button>
+           </div>
+           <button className="close-btn dismiss-btn" onClick={closeModal}>X</button>
+           {playlists.map(playlist => (
+             <div className='playlist-container' key={playlist._id}>
+               <input type="checkbox"
+               onChange={(e) => updatePlayList(e, playlist._id, video)} />
+               <div>{playlist.title}</div>
+             </div>
+           ))}
+       </div>
        </div>
     </div>
     </>
