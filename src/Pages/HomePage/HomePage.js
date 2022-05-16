@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 
 export function HomePage() {
   const { videos } = useVideos();
-  console.log(videos)
   return (
     <div className='page-container'>
     <SideBar />
