@@ -1,4 +1,4 @@
-import React from 'react';
+import React  from 'react';
 import './Likes.css';
 import { SideBar , CategoryBar } from '../../components/index';
 import { useVideos } from '../../context';
@@ -8,8 +8,14 @@ import { removeLikeVideo } from '../../api-calls/api-calls';
 
 
 export function Likes() {
-  const { videoState, videoDispatch, setVideos } = useVideos();
-  const likeVideos = videoState.payload.likeVideos.data.likes;
+  const { videoState, videoDispatch , setVideos} = useVideos();
+  
+  let likeVideos;
+  if(videoState.payload.likeVideos === undefined){
+    likeVideos=[];
+  }else{
+    likeVideos = videoState.payload.likeVideos.data.likes;
+  }
   
 
   const removeLikeVideos = async(item) => {
@@ -24,8 +30,8 @@ export function Likes() {
     <SideBar />
     <div className="home-section">
     <CategoryBar />
-    <div className='likes-page-container'>
       <h2>Likes Videos</h2>
+    <div className='likes-page-container'>
       <div className='like-videos'>
          {likeVideos && likeVideos.map(video => (
            <div key={video._id} className='video'>

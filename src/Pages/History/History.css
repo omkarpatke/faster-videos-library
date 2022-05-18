@@ -1,0 +1,27 @@
+.history-videos{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    gap: 1rem 1rem;
+    background-color: var(--bg-color);
+    padding: 1rem;
+    min-height: 100vh;
+}
+
+.dislike-btn{
+    position: relative;
+    bottom: 11rem;
+    left: 17rem;
+    font-size: 1.1rem;
+}
+
+.delete-btn{
+    font-size: 1rem;
+    font-weight: 500;
+    margin-left: 50rem;
+    padding: 5px 8px;
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    border-radius: 10px;
+    cursor: pointer;
+}

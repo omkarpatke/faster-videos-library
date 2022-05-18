@@ -3,15 +3,29 @@ import { SideBar, CategoryBar } from '../../components/index';
 import { useVideos } from '../../context/index';
 import './HomePage.css';
 import { Link } from 'react-router-dom';
+import { addVideoInHistory } from '../../api-calls/api-calls';
+import { useHistoryContext } from '../../context/HistoryContext';
 
 export function HomePage() {
+
+  const { videos  } = useVideos();
+  const { historyVideosDispatch } = useHistoryContext();
+
+
+  const addVideoToHistory = async(video) => {
+    const response = await addVideoInHistory(video);
+    historyVideosDispatch({type:'HISTORY_VIDEO', payload:response});
+  }
+  
+
   const { filteredVideos , setFilteredVideos } = useVideos();
-  console.log(filteredVideos);
+  
 
 
   const toggleBtn = id => {
      setFilteredVideos( prev => prev.map(item => item._id === id ? {...item, toggle: !item.toggle} : item))
   }
+
 
 
   return (
@@ -23,7 +37,7 @@ export function HomePage() {
     <div className='videos-container'>
      {filteredVideos.map((video) => (
        <div key={video._id} className='video'>
-         <Link to={`/videos/${video._id}`}><img src={video.image} alt="videoImg" className='video-img' /></Link>
+         <Link to={`/videos/${video._id}`} onClick={() => addVideoToHistory(video)}><img src={video.image} alt="videoImg" className='video-img' /></Link>
          <div className='video-info-container'>
          <div className="video-title">{video.title}</div>
          <div className="video-owner">Video by : {video.creator}</div>
