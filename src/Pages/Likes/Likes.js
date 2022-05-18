@@ -11,12 +11,12 @@ export function Likes() {
   const { videoState, videoDispatch , setVideos} = useVideos();
   
   let likeVideos;
-  if(videoState.payload.likeVideos === undefined){
+  if(videoState.payload === 'undefined' || videoState.payload === 'none' ){
     likeVideos=[];
   }else{
     likeVideos = videoState.payload.likeVideos.data.likes;
   }
-  
+ 
 
   const removeLikeVideos = async(item) => {
     const response = await removeLikeVideo(item);
