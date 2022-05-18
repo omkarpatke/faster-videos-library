@@ -75,7 +75,7 @@
     background-color: var(--category-color);
 }
 
-.video-btns{
+.video-model-btns{
     display: flex;
     flex-direction: column;
     padding: 10px 0;
@@ -87,12 +87,12 @@
     left: 5rem;
 }
 
-.video-btn{
+.video-model-btn{
     padding: 6px 3px;
     margin: 0 3px;
 }
 
-.video-btn:hover{
+.video-model-btn:hover{
     background-color: var(--white-color);
 }
 
