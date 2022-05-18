@@ -15,7 +15,7 @@ export function SingleVideo() {
     const addLikeVideos = async(item) => {
       const response = await likeVideo(item);
       videoDispatch({type: 'LIKE_VIDEO' , payload : response});
-      setVideos(prev => prev.map(prevVideo => prevVideo._id === item._id ? {...prevVideo , isLiked:true} : prevVideo))
+      setVideos(prev => prev.map(prevVideo => prevVideo._id === item._id ? {...prevVideo , isLiked:true , isDisliked:false } : prevVideo))
     }
 
     const removeLikeVideos = async(item) => {
@@ -25,12 +25,10 @@ export function SingleVideo() {
     }
 
     const addDisLikeVideos = (item) => {
-      console.log('add');
-      setVideos(prev => prev.map(prevVideo => prevVideo._id === item._id ? {...prevVideo , isDisliked:true} : prevVideo))
+      setVideos(prev => prev.map(prevVideo => prevVideo._id === item._id ? {...prevVideo , isDisliked:true , isLiked:false} : prevVideo))
     }
 
     const removeDisLikeVideos = (item) => {
-      console.log('remove');
       setVideos(prev => prev.map(prevVideo => prevVideo._id === item._id ? {...prevVideo , isDisliked:false} : prevVideo))
     }
     

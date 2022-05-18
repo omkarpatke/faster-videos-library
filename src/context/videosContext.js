@@ -11,6 +11,7 @@ const useVideos = () => useContext(VideosContext);
 const VideosContextProvider = ({children}) => {
     const [videos , setVideos] = useState([]);
 
+
     const videosReducer = (accu , action) => {
         switch(action.type){
             case 'LIKE_VIDEO':
@@ -26,6 +27,11 @@ const VideosContextProvider = ({children}) => {
 
     const [videoState , videoDispatch] = useReducer(videosReducer , {type:'none' , payload:'none'})
 
+
+    const [toggleTab , setToggleTab] = useState('All');
+    const [filteredVideos , setFilteredVideos] = useState([]);
+    
+
     useEffect(() => {
         const fetchData = async() => {
         try{
@@ -38,8 +44,19 @@ const VideosContextProvider = ({children}) => {
     }
     fetchData();
     },[]);
-    
-    return (<VideosContext.Provider value={{videos,setVideos, videoState,videoDispatch }}>{children}</VideosContext.Provider>)
+
+    useEffect(() => {
+       if(toggleTab === 'All'){
+           setFilteredVideos(videos);
+       }else{
+           setFilteredVideos(videos.filter(item => item.categoryName === toggleTab ));
+           
+       }
+    },[toggleTab, videos])
+
+
+    return (<VideosContext.Provider value={{videoState, videoDispatch, videos, setVideos , setToggleTab, filteredVideos , toggleTab , setFilteredVideos }}>{children}</VideosContext.Provider>)
+
 }
 
 export { useVideos , VideosContextProvider }
