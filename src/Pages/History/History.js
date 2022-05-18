@@ -1,6 +1,6 @@
 import React from 'react';
 import './History.css';
-import { SideBar , CategoryBar } from '../../components/index';
+import { SideBar } from '../../components/index';
 import { Link } from 'react-router-dom';
 import { removeHistoryVideo , removeAllHistory  } from '../../api-calls/api-calls';
 import { useHistoryContext } from '../../context/HistoryContext';
@@ -28,7 +28,6 @@ export function History() {
     <div className='page-container'>
     <SideBar />
     <div className="home-section">
-    <CategoryBar />
     <div className='history-page-container'>
       <h2 className='heading'>History Videos <span onClick={deleteAllHistory} className='delete-btn'>Delete All</span></h2>
       <div className='history-videos'>

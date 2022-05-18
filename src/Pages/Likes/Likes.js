@@ -1,6 +1,6 @@
 import React  from 'react';
 import './Likes.css';
-import { SideBar , CategoryBar } from '../../components/index';
+import { SideBar } from '../../components/index';
 import { useVideos } from '../../context';
 import { Link } from 'react-router-dom';
 import { removeLikeVideo } from '../../api-calls/api-calls';
@@ -29,7 +29,6 @@ export function Likes() {
     <div className='page-container'>
     <SideBar />
     <div className="home-section">
-    <CategoryBar />
       <h2>Likes Videos</h2>
     <div className='likes-page-container'>
       <div className='like-videos'>
