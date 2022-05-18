@@ -19,7 +19,7 @@ export function HomePage() {
   
 
   const { filteredVideos , setFilteredVideos } = useVideos();
-  console.log(filteredVideos);
+  
 
 
   const toggleBtn = id => {
