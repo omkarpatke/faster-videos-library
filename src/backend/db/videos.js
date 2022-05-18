@@ -13,7 +13,11 @@ export const videos = [
     creator: "Harry Bhai",
     watchLater: false,
     isLiked: false,
+
     isDisLike:false,
+
+    toggle: false,
+
   },
   {
     _id: uuid(),
@@ -27,7 +31,11 @@ export const videos = [
     creator: "Harry Bhai",
     watchLater: false,
     isLiked: false,
+
     isDisLike:false,
+
+    toggle: false,
+
   },
   {
     _id: uuid(),
@@ -41,7 +49,11 @@ export const videos = [
     creator: "Quick Support",
     watchLater: false,
     isLiked: false,
+
     isDisLike:false,
+
+    toggle: false,
+
   },
   {
     _id: uuid(),
@@ -56,6 +68,9 @@ export const videos = [
     watchLater: false,
     isLiked: false,
     isDisLike:false,
+
+    toggle: false,
+
   },
   {
     _id: uuid(),
@@ -69,7 +84,11 @@ export const videos = [
     creator: "Tech Gun",
     watchLater: false,
     isLiked: false,
+
     isDisLike:false,
+
+    toggle: false,
+
   },
   {
     _id: uuid(),
@@ -83,7 +102,11 @@ export const videos = [
     creator: "Edureka",
     watchLater: false,
     isLiked: false,
+
     isDisLike:false,
+
+    toggle: false,
+
   },
   {
     _id: uuid(),
@@ -97,7 +120,11 @@ export const videos = [
     creator: "Tech Gun",
     watchLater: false,
     isLiked: false,
+
     isDisLike:false,
+
+    toggle: false,
+
   },
   {
     _id: uuid(),
@@ -111,7 +138,11 @@ export const videos = [
     creator: "Harry Bhai",
     watchLater: false,
     isLiked: false,
+
     isDisLike:false,
+
+    toggle: false,
+
   },
   {
     _id: uuid(),
@@ -125,7 +156,11 @@ export const videos = [
     creator: "Programming with Mosh",
     watchLater: false,
     isLiked: false,
+
     isDisLike:false,
+
+    toggle: false,
+
   },
   {
     _id: uuid(),
@@ -139,7 +174,11 @@ export const videos = [
     creator: "Technology Gyan",
     watchLater: false,
     isLiked: false,
+
     isDisLike:false,
+
+    toggle: false,
+
   },
   {
     _id: uuid(),
@@ -153,7 +192,11 @@ export const videos = [
     creator: "freeCodeCamp",
     watchLater: false,
     isLiked: false,
+
     isDisLike:false,
+
+    toggle: false,
+
   },
   {
     _id: uuid(),
@@ -167,7 +210,11 @@ export const videos = [
     creator: "Aman Dhattarwal",
     watchLater: false,
     isLiked: false,
+
     isDisLike:false,
+
+    toggle: false,
+
   },
   
 ];
