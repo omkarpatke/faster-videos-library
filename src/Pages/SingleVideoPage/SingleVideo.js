@@ -10,10 +10,10 @@ export function SingleVideo() {
     const [showModal , setShowModal ] = useState(false);
     const [playlistName , setPlaylistName ] = useState('');
     const URL = "https://www.youtube.com/embed/";
-    const { id } = useParams();
+    const { videoId } = useParams();
     const { videos , setVideos , videoDispatch } = useVideos();
     const { watchLaterDispatch } = useWatchlaterContext();
-    const video  = videos.find( item => item._id === id );
+    const video  = videos.find( item => item._id === videoId );
     const notify = useToastContext();
     const {playListState , playListDispatch } = usePlayListContext();
     let playlists;

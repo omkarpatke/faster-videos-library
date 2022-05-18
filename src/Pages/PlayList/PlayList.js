@@ -1,5 +1,5 @@
 
-import React  from 'react';
+import React , { useEffect , useState }  from 'react';
 import { Link } from 'react-router-dom';
 import { SideBar } from '../../components/index';
 import { usePlayListContext } from '../../context';
@@ -8,23 +8,27 @@ import './PlayList.css';
 
 export function PlayList() {
   const {playListState , playListDispatch } = usePlayListContext();
-  let playlists;
+  const [playlists , setPlayLists] = useState([]);
+
+
+  useEffect(() => {
   if(playListState.payload === undefined || playListState.payload === 'none'){
-    playlists = [];
+    setPlayLists([]);
   }else{
-    playlists = playListState.payload.playlist.data.playlists;
+    setPlayLists(playListState.payload.playlist.data.playlists);
   }
-  console.log(playlists);
+},[playListState , playlists])
   
   
   
+
  
   return (
     <div className='page-container'>
     <SideBar />
     <div className="home-section">
     <div className='play-lists'>
-      {playlists.map( playlist => (
+      {playlists && playlists.map( playlist => (
         <div key={playlist._id} className='playlist-card'>
          <span className="remove-playlist-btn" onClick={async() => {
            const response = await removePlayList(playlist._id);

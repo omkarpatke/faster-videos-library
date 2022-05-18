@@ -6,7 +6,7 @@ import { removeVideoFromPlaylist } from '../../api-calls/api-calls';
 
 export  function PlayListVideos() {
     const {playListState , playListDispatch } = usePlayListContext();
-    const { id } = useParams();
+    const { playListVideosId } = useParams();
   let playlists;
   if(playListState.payload === undefined || playListState.payload === 'none'){
     playlists = [];
@@ -15,7 +15,7 @@ export  function PlayListVideos() {
   }
   let videos;
   if(playlists){
-    videos = playlists.find(item => item._id === id).videos
+    videos = playlists.find(item => item._id === playListVideosId).videos
   }else{
     videos = [];
   }
@@ -28,7 +28,7 @@ export  function PlayListVideos() {
         <div key={video._id} className='video'>
         <Link to={`/videos/${video._id}`}><img src={video.image} alt="videoImg" className='video-img like-video-img' /></Link>
         <div className="dislike-btn" title='Delete Video' onClick={async() => {
-           const response = await removeVideoFromPlaylist( id, video._id);
+           const response = await removeVideoFromPlaylist( playListVideosId, video._id);
            playListDispatch({type : 'REMOVE_DATA_FROM_PLAYLIST' , payload:response})
         }}>X</div>
         <div className='video-info-container'>
