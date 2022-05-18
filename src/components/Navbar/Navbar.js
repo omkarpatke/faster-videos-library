@@ -5,7 +5,8 @@ import { useUserAuth, useToastContext } from '../../context/index';
 
 
 export function Navbar() {
-  const { isLogin, setIsLogIn }  = useUserAuth();
+  const { isLogIn , setIsLogIn }  = useUserAuth();
+  
   const notify = useToastContext();
   const navigate = useNavigate();
 
@@ -21,7 +22,7 @@ export function Navbar() {
         <Link to='/' className="brand-logo">Faster Videos</Link>
         <input type="search" name="search" id="search" className='search-input'></input>
         <i className="search-icon lni lni-search-alt" title='Search'></i>
-        {isLogin 
+        {isLogIn 
         ? <div className="logout-btn" onClick={logoutHandler}>logout</div>
         : <Link className="login-link" to='/login'>Login</Link>
         }

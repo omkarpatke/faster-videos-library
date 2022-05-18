@@ -1,0 +1,20 @@
+.like-videos{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    gap: 1rem 1rem;
+    background-color: var(--bg-color);
+    padding: 1rem;
+    min-height: 100vh;
+}
+
+/* .like-video-img{
+    position: relative;
+} */
+
+.dislike-btn{
+    position: relative;
+    bottom: 11rem;
+    left: 17rem;
+    font-size: 1.1rem;
+}
