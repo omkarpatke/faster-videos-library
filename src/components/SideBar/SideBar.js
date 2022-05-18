@@ -19,7 +19,7 @@ const activeStyle = ({isActive}) =>  {
       <NavLink style={activeStyle} className='sidebar-link' title='Likes' to='/likes'><i className="fa-solid fa-thumbs-up"></i> <span className='link-content'>Likes</span></NavLink>
       <NavLink style={activeStyle} className='sidebar-link' title='Watch Later' to='/watch-later'><i className="fa-solid fa-clock"></i><span className='link-content'>Watch Later</span></NavLink>
       <NavLink style={activeStyle} className='sidebar-link' title='History' to='/history'><i className="fa-solid fa-clock-rotate-left"></i><span className='link-content'>History</span></NavLink>
-      <NavLink style={activeStyle} className='sidebar-link' title='History' to='/playlist'><i class="fa-solid fa-list"></i><span className='link-content'>PlayList</span></NavLink>
+      <NavLink style={activeStyle} className='sidebar-link' title='History' to='/playlist'><i className="fa-solid fa-list"></i><span className='link-content'>PlayList</span></NavLink>
     </div>
     </>
   )
