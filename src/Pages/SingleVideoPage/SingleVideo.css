@@ -1,0 +1,61 @@
+:root{
+    --hover-color: #e4e1e1;
+}
+
+.single-video-page-container{
+    margin-top: 4rem;
+    display: flex;
+}
+
+.video-card{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 1rem;
+    min-height: 100vh;
+    text-align: initial;
+    background-color:var(--bg-color);
+    width: 100%;
+}
+
+.embeded-video{
+    width: 55vw;
+    height: 60vh;
+}
+
+.single-video-title{
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-top: 1rem;
+}
+
+.video-info{
+    margin-top: 10px;
+}
+
+.video-btns{
+    display: inline-flex;
+    gap: 1.5rem;
+    margin-left: 3rem;
+}
+
+.video-like-btn ,.video-dis-like-btn,.video-watch-later-btn,.video-play-list-btn{
+    cursor: pointer;
+    padding: 5px 8px;
+}
+
+.video-like-btn:hover{
+    background-color: var(--hover-color);
+}
+
+.video-dis-like-btn:hover{
+    background-color: var(--hover-color);
+}
+
+.video-watch-later-btn:hover{
+    background-color: var(--hover-color);
+}
+
+.video-play-list-btn:hover{
+    background-color: var(--hover-color);
+}

@@ -4,7 +4,8 @@ import Mockman from "mockman-js";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Routes , Route } from 'react-router-dom';
-import { HomePage , SignIn , SignUp , History, Likes, WatchLater, PlayList } from "./Pages/index";
+import { HomePage , SignIn , SignUp , History, Likes, WatchLater, PlayList, SingleVideo} from "./Pages/index";
+
 
 
 
@@ -20,6 +21,7 @@ function App() {
         <Route path='/history' element={<History />} />
         <Route path='/watch-later' element={<WatchLater />} />
         <Route path='/playlist' element={<PlayList />} />
+        <Route path='/videos/:id' exact element={<SingleVideo />} />
         <Route path='/mock' element={<Mockman />} />
       </Routes>
       <ToastContainer 

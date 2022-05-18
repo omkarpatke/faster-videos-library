@@ -28,16 +28,21 @@
 
 .video{
    background-color: var(--white-color);
+
+   max-width: 18.75rem;
+   max-height: auto;
+
    max-width: 300px;
    max-height: 340px;
+
    gap: 1rem;
    cursor: pointer;
    position: relative;
 }
 
 .video-img{
-   height: 180px;
-   width: 300px;
+   height: 11.25rem;
+   width: 18.75rem;
 }
 
 .video-img:hover{
