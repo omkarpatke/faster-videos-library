@@ -29,7 +29,7 @@ export function PlayList() {
     <SideBar />
     <div className="home-section">
 
-    <div>Play List Page</div>
+    <h2>Play List Page</h2>
 
     <div className='play-lists'>
       {playlists && playlists.map( playlist => (

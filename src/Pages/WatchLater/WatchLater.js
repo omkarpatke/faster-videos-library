@@ -25,10 +25,7 @@ export function WatchLater() {
     <div className='page-container'>
     <SideBar />
     <div className="home-section">
-
-    <div>Watch Later Page</div>
-
-    <CategoryBar />
+    <h2>Watch Later Page</h2>
     <div className='history-videos'>
          {watchLaterVideos.map(video => (
            <div key={video._id} className='video'>
