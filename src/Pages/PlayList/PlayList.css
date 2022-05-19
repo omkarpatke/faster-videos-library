@@ -1,0 +1,43 @@
+
+.like-videos{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    gap: 1rem 1rem;
+    background-color: var(--bg-color);
+    padding: 1rem;
+    min-height: 100vh;
+}
+
+.playlist-card{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--white-color);
+    padding: 0 4rem ;
+    height: 8rem;
+}
+
+.play-lists{
+    display: flex;
+    flex-wrap: wrap;
+    background-color: var(--bg-color);
+    min-height: 100vh;
+    gap: 1rem 1rem;
+    padding: 1rem;
+}
+
+.remove-playlist-btn{
+    position: relative;
+    bottom: 0.5rem;
+    left: 5rem;
+    font-weight: 500;
+    font-size: 1.3rem;
+    transition: .3s all ease-in-out;
+}
+
+.remove-playlist-btn:hover{
+    cursor: pointer;
+    transform: scale(1.2);
+}

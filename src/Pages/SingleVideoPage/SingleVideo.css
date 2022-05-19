@@ -59,3 +59,41 @@
 .video-play-list-btn:hover{
     background-color: var(--hover-color);
 }
+
+ /* modal  */
+
+ .hidden{
+     display: none;
+ }
+
+ .playlistModal{
+     position: fixed;
+     top: 40%;
+     left: 40%;
+     background-color: var(--white-color);
+     padding: 1rem;
+ }
+
+ .close-btn{
+     position: relative;
+     bottom: 5rem;
+ }
+
+ .modal-input{
+     padding-left: 5px;
+ }
+
+ .playlist-btn{
+     cursor: pointer;
+ }
+
+ .modal-heading{
+     margin-bottom: 1rem;
+ }
+ 
+
+ .playlist-container{
+     display: flex;
+     align-items: center;
+     gap: 10px;
+ }
