@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { SideBar } from '../../components/index';
 import { usePlayListContext } from '../../context';
 import { removePlayList } from '../../api-calls/api-calls';
+
 import './PlayList.css';
 
 export function PlayList() {
@@ -16,7 +17,7 @@ export function PlayList() {
     setPlayLists([]);
   }else{
     setPlayLists(playListState.payload.playlist.data.playlists);
-  }
+ }
 },[playListState , playlists])
   
   
@@ -27,6 +28,9 @@ export function PlayList() {
     <div className='page-container'>
     <SideBar />
     <div className="home-section">
+
+    <div>Play List Page</div>
+
     <div className='play-lists'>
       {playlists && playlists.map( playlist => (
         <div key={playlist._id} className='playlist-card'>
@@ -41,6 +45,7 @@ export function PlayList() {
         
       ))}
     </div>
+
     </div>
     </div>
   )

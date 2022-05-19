@@ -28,18 +28,11 @@
 
 .video{
    background-color: var(--white-color);
-
    max-width: 18.75rem;
    max-height: auto;
-
-   max-width: 300px;
-   max-height: 340px;
-
    gap: 1rem;
    cursor: pointer;
-
    height: 320px;
-
    position: relative;
 
 }

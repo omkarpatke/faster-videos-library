@@ -5,6 +5,7 @@ import { useWatchlaterContext } from '../../context';
 import { removeFromWatchLater } from '../../api-calls/api-calls';
 import { Link } from 'react-router-dom';
 
+
 export function WatchLater() {
   const { watchLaterState , watchLaterDispatch } = useWatchlaterContext();
 
@@ -24,6 +25,9 @@ export function WatchLater() {
     <div className='page-container'>
     <SideBar />
     <div className="home-section">
+
+    <div>Watch Later Page</div>
+
     <CategoryBar />
     <div className='history-videos'>
          {watchLaterVideos.map(video => (
@@ -37,6 +41,7 @@ export function WatchLater() {
          </div>
          ))}
       </div>
+
     </div>
     </div>
   )
