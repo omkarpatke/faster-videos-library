@@ -7,10 +7,7 @@ import { addVideoInHistory } from '../../api-calls/api-calls';
 import { useHistoryContext } from '../../context/HistoryContext';
 
 export function HomePage() {
-
-  const { videos  } = useVideos();
   const { historyVideosDispatch } = useHistoryContext();
-
 
   const addVideoToHistory = async(video) => {
     const response = await addVideoInHistory(video);
