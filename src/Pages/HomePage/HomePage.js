@@ -9,7 +9,6 @@ import { useHistoryContext } from '../../context/HistoryContext';
 export function HomePage() {
   const { historyVideosDispatch } = useHistoryContext();
 
-
   const addVideoToHistory = async(video) => {
     const response = await addVideoInHistory(video);
     historyVideosDispatch({type:'HISTORY_VIDEO', payload:response});
