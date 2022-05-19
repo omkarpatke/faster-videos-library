@@ -1,6 +1,6 @@
 import React , { useState }  from 'react';
 import { SideBar, CategoryBar } from '../../components/index';
-import { useVideos , useHistoryContext , useWatchlaterContext , usePlayListContext, useToastContext } from '../../context/index';
+import { useVideos , useHistoryContext , useWatchlaterContext , usePlayListContext, useToastContext, useUserAuth } from '../../context/index';
 import './HomePage.css';
 import { Link } from 'react-router-dom';
 import { addVideoInHistory , addToWatchLater, removeFromWatchLater , createPlayList , addVideoToPlaylist , removeVideoFromPlaylist } from '../../api-calls/api-calls';
@@ -12,6 +12,7 @@ export function HomePage() {
   const [showModal , setShowModal ] = useState(false);
   const [playlistName , setPlaylistName ] = useState('');
   const { playListState , playListDispatch } = usePlayListContext();
+  const { isLogIn } = useUserAuth();
   const notify = useToastContext();
   let playlists;
     if(playListState.payload === undefined || playListState.payload === 'none'){
@@ -43,9 +44,12 @@ export function HomePage() {
   }
 
   const showPlaylistModal = (id) => {
+    if(isLogIn){
     setShowModal(true);
     toggleBtn(id);
-
+    }else{
+      notify('Please Login!',{ type:'warning' })
+    }
   }
 
 
@@ -55,9 +59,13 @@ export function HomePage() {
   }
 
   const addVideoToWatchLater = async(item) => {
+    if(isLogIn){
     const response = await addToWatchLater(item);
     watchLaterDispatch({type: 'WATCHLATER_VIDEO' , payload : response});
     setVideos(prev => prev.map(prevVideo => prevVideo._id === item._id ? {...prevVideo , watchLater:true} : prevVideo))
+    }else{
+      notify('Please Login!',{ type:'warning' })
+    }
   }
 
   const removeVideoFromWatchLater = async(item) => {

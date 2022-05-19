@@ -25,7 +25,6 @@
 .sidebar-link:hover{
     background-color: var(--sidebar-link-color);
 }
-
 .link-content{
     padding-left: 10px;
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import './WatchLater.css';
-import { SideBar , CategoryBar } from '../../components/index';
+import { SideBar } from '../../components/index';
 import { useWatchlaterContext } from '../../context';
 import { removeFromWatchLater } from '../../api-calls/api-calls';
 import { Link } from 'react-router-dom';
