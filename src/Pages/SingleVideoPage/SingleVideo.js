@@ -70,9 +70,6 @@ export function SingleVideo() {
     }
 
     const addDisLikeVideos = (item) => {
-
-      setVideos(prev => prev.map(prevVideo => prevVideo._id === item._id ? {...prevVideo , isDisliked:true} : prevVideo))
-
       setVideos(prev => prev.map(prevVideo => prevVideo._id === item._id ? {...prevVideo , isDisliked:true , isLiked:false} : prevVideo))
 
     }
