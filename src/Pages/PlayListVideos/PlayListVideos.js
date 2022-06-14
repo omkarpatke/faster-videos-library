@@ -1,24 +1,30 @@
-import React from 'react'
+import React , { useState , useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { SideBar } from '../../components'
 import { usePlayListContext } from '../../context';
-import { removeVideoFromPlaylist } from '../../api-calls/api-calls';
+import { getPlayList, removeVideoFromPlaylist } from '../../api-calls/api-calls';
 
 export  function PlayListVideos() {
     const {playListState , playListDispatch } = usePlayListContext();
     const { playListVideosId } = useParams();
-  let playlists;
-  if(playListState.payload === undefined || playListState.payload === 'none'){
-    playlists = [];
-  }else{
-    playlists = playListState.payload.playlist.data.playlists;
-  }
+    const [playlists , setPlaylists] = useState([]);
+    const data = async() => {
+      const getData = await getPlayList();
+      setPlaylists(getData.playlist.data.playlists);
+      }
+    
+      useEffect(() => {
+        data();
+      },[playListState]);
+
+  
   let videos;
-  if(playlists){
+  if(playlists.length > 1){
     videos = playlists.find(item => item._id === playListVideosId).videos
   }else{
     videos = [];
   }
+
   return (
     <div className='page-container'>
     <SideBar />

@@ -3,7 +3,7 @@ import React , { useEffect , useState }  from 'react';
 import { Link } from 'react-router-dom';
 import { SideBar } from '../../components/index';
 import { usePlayListContext } from '../../context';
-import { removePlayList } from '../../api-calls/api-calls';
+import { getPlayList, removePlayList } from '../../api-calls/api-calls';
 
 import './PlayList.css';
 
@@ -11,14 +11,14 @@ export function PlayList() {
   const {playListState , playListDispatch } = usePlayListContext();
   const [playlists , setPlayLists] = useState([]);
 
+const data = async() => {
+  const getData = await getPlayList();
+  setPlayLists(getData.playlist.data.playlists);
+  }
 
   useEffect(() => {
-  if(playListState.payload === undefined || playListState.payload === 'none'){
-    setPlayLists([]);
-  }else{
-    setPlayLists(playListState.payload.playlist.data.playlists);
- }
-},[playListState , playlists])
+    data();
+  },[playListState]);
   
   
   

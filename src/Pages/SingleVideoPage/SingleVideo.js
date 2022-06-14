@@ -1,6 +1,6 @@
-import React , { useState } from 'react';
+import React , { useState , useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { addToWatchLater, addVideoToPlaylist, createPlayList,  likeVideo , removeFromWatchLater, removeLikeVideo, removeVideoFromPlaylist } from '../../api-calls/api-calls';
+import { addToWatchLater, addVideoToPlaylist, createPlayList,  getPlayList,  likeVideo , removeFromWatchLater, removeLikeVideo, removeVideoFromPlaylist } from '../../api-calls/api-calls';
 import { SideBar } from '../../components';
 import { useToastContext, useVideos, useWatchlaterContext } from '../../context';
 import { usePlayListContext } from '../../context/PlayListContext';
@@ -16,13 +16,15 @@ export function SingleVideo() {
     const video  = videos.find( item => item._id === videoId );
     const notify = useToastContext();
     const {playListState , playListDispatch } = usePlayListContext();
-    let playlists;
-    if(playListState.payload === undefined || playListState.payload === 'none'){
-      playlists = [];
-    }else{
-      playlists = playListState.payload.playlist.data.playlists;
-    }
-
+    const [playlists , setPlaylists] = useState([]);
+    const data = async() => {
+      const getData = await getPlayList();
+      setPlaylists(getData.playlist.data.playlists);
+      }
+    
+      useEffect(() => {
+        data();
+      },[playListState]);
     const closeModal = () => {
       setShowModal(false);
     }
