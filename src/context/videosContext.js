@@ -10,7 +10,8 @@ const useVideos = () => useContext(VideosContext);
 
 const VideosContextProvider = ({children}) => {
     const [videos , setVideos] = useState([]);
-
+    const [toggleTab , setToggleTab] = useState('All');
+    const [filteredVideos , setFilteredVideos] = useState([]);
 
     const videosReducer = (accu , action) => {
         switch(action.type){
@@ -18,6 +19,11 @@ const VideosContextProvider = ({children}) => {
                 return {...accu , type: action.type , payload: action.payload}
     
             case 'DISLIKE_VIDEO':
+                return {...accu ,type: action.type , payload: action.payload}
+
+            case 'USER_SEARCHED_VIDEOS':
+                const searchedVideos = videos.filter(video => video.categoryName.includes(action.payload));
+                setFilteredVideos(searchedVideos);
                 return {...accu ,type: action.type , payload: action.payload}
     
             default : 
@@ -27,9 +33,6 @@ const VideosContextProvider = ({children}) => {
 
     const [videoState , videoDispatch] = useReducer(videosReducer , {type:'none' , payload:'none'})
 
-
-    const [toggleTab , setToggleTab] = useState('All');
-    const [filteredVideos , setFilteredVideos] = useState([]);
     
 
     useEffect(() => {
@@ -48,9 +51,9 @@ const VideosContextProvider = ({children}) => {
     useEffect(() => {
        if(toggleTab === 'All'){
            setFilteredVideos(videos);
-       }else{
+       }
+       else{
            setFilteredVideos(videos.filter(item => item.categoryName === toggleTab ));
-           
        }
     },[toggleTab, videos])
 
