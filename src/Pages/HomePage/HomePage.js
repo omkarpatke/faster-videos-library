@@ -1,9 +1,9 @@
-import React , { useState }  from 'react';
+import React , { useState , useEffect }  from 'react';
 import { SideBar, CategoryBar } from '../../components/index';
 import { useVideos , useHistoryContext , useWatchlaterContext , usePlayListContext, useToastContext, useUserAuth } from '../../context/index';
 import './HomePage.css';
 import { Link } from 'react-router-dom';
-import { addVideoInHistory , addToWatchLater, removeFromWatchLater , createPlayList , addVideoToPlaylist , removeVideoFromPlaylist } from '../../api-calls/api-calls';
+import { addVideoInHistory , addToWatchLater, removeFromWatchLater , createPlayList , addVideoToPlaylist , removeVideoFromPlaylist, getPlayList } from '../../api-calls/api-calls';
 
 export function HomePage() {
   const { historyVideosDispatch } = useHistoryContext();
@@ -14,12 +14,18 @@ export function HomePage() {
   const { playListState , playListDispatch } = usePlayListContext();
   const { isLogIn } = useUserAuth();
   const notify = useToastContext();
-  let playlists;
-    if(playListState.payload === undefined || playListState.payload === 'none'){
-      playlists = [];
-    }else{
-      playlists = playListState.payload.playlist.data.playlists;
-    }
+  const [playlists , setPlaylists] = useState([]);
+    const data = async() => {
+      const getData = await getPlayList();
+      if(getData.playlist.data.playlists !== undefined){
+        setPlaylists(getData.playlist.data.playlists);
+      }
+      }
+    
+      useEffect(() => {
+        data();
+      },[playListState]);
+
 
   const updatePlayList = async(e, playlistId , videoData) => {
     if(e.target.checked){
