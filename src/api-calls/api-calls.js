@@ -12,6 +12,18 @@ const likeVideo = async(video) => {
     }
 }
 
+const getLikeVideo = async() => {
+    try {
+        const response = await axios.get(`/api/user/likes`, { headers });
+        return { likeVideos : response}
+    }
+    catch(err){
+        console.error(err);
+    }
+}
+
+
+
 const removeLikeVideo = async(video) => {
     try {
         const response = await axios({
@@ -152,4 +164,4 @@ const removePlayList = async(playlistId) => {
 
 
 
-export {removePlayList, removeVideoFromPlaylist , addVideoToPlaylist, likeVideo, removeLikeVideo, addVideoInHistory, removeHistoryVideo, removeAllHistory , addToWatchLater , removeFromWatchLater, createPlayList, getPlayList };
+export {removePlayList, removeVideoFromPlaylist ,getLikeVideo, addVideoToPlaylist, likeVideo, removeLikeVideo, addVideoInHistory, removeHistoryVideo, removeAllHistory , addToWatchLater , removeFromWatchLater, createPlayList, getPlayList };

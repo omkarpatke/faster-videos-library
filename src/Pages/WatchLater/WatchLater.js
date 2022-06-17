@@ -33,7 +33,7 @@ export function WatchLater() {
            <div className="dislike-btn" title='Delete History' onClick={() => removeWatchLaterVideos(video)}>X</div>
            <div className='video-info-container'>
            <div className="video-title">{video.title}</div>
-           <div className='video-info'>270k Views |  8 months ago  <span className='options'><i className="fa-solid fa-ellipsis-vertical"></i></span></div>
+           <div className='video-info'>270k Views |  8 months ago</div>
            </div>
          </div>
          ))}
