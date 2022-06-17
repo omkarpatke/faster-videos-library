@@ -11,8 +11,15 @@
 .dislike-btn{
     position: relative;
     bottom: 11rem;
-    left: 17rem;
+    left: 16rem;
+    height: 2rem;
     font-size: 1.1rem;
+    background-color: var(--gray-color);
+    width: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
 }
 
 .primary-btn{
