@@ -1,30 +1,26 @@
-import React , { useState , useEffect } from 'react';
+import React , { useState } from 'react';
+import { useDispatch , useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { addToWatchLater, addVideoToPlaylist, createPlayList,  getPlayList,  likeVideo , removeFromWatchLater, removeLikeVideo, removeVideoFromPlaylist } from '../../api-calls/api-calls';
 import { SideBar } from '../../components';
-import { useToastContext, useVideos, useWatchlaterContext } from '../../context';
-import { usePlayListContext } from '../../context/PlayListContext';
+import { useToastContext, useVideos } from '../../context';
 import './SingleVideo.css';
+import  { removeVideo , addVideos }  from '../../store/likeVideosSlice';
+import { addToWatchLater , removeFromWatchLater } from '../../store/watchLaterSlice';
+import { addPlaylist , addVideoToPlaylist , removeVideoFromPlaylist } from '../../store/playlistsSlice';
 
 export function SingleVideo() {
     const [showModal , setShowModal ] = useState(false);
     const [playlistName , setPlaylistName ] = useState('');
     const URL = "https://www.youtube.com/embed/";
     const { videoId } = useParams();
-    const { videos , setVideos , videoDispatch } = useVideos();
-    const { watchLaterDispatch } = useWatchlaterContext();
+    const { videos , setVideos } = useVideos();
     const video  = videos.find( item => item._id === videoId );
     const notify = useToastContext();
-    const {playListState , playListDispatch } = usePlayListContext();
-    const [playlists , setPlaylists] = useState([]);
-    const data = async() => {
-      const getData = await getPlayList();
-      setPlaylists(getData.playlist.data.playlists);
-      }
-    
-      useEffect(() => {
-        data();
-      },[playListState]);
+
+    const dispatch = useDispatch();
+    const reduxPlayLists = useSelector(state => state.playlists);
+
+      
     const closeModal = () => {
       setShowModal(false);
     }
@@ -35,39 +31,33 @@ export function SingleVideo() {
 
     const createPlaylist = async() => {
       if(playlistName){
-        const response = await createPlayList(playlistName);
-        playListDispatch({type : 'NEW_PLAYLIST', payload: response})
-
+        dispatch(addPlaylist(playlistName));
       }else{
         notify('Please Enter Playlist Name!',{type:'warning'})
       }
       setPlaylistName('');
     }
-    
+
     
 
-    const addVideoToWatchLater = async(item) => {
-      const response = await addToWatchLater(item);
-      watchLaterDispatch({type: 'WATCHLATER_VIDEO' , payload : response});
+    const addVideoToWatchLater = (item) => {
+      dispatch(addToWatchLater(item));
       setVideos(prev => prev.map(prevVideo => prevVideo._id === item._id ? {...prevVideo , watchLater:true} : prevVideo))
     }
 
-    const removeVideoFromWatchLater = async(item) => {
-      const response = await removeFromWatchLater(item);
-      watchLaterDispatch({type: 'REMOVE_WATCHLATER_VIDEO' , payload : response});
+    const removeVideoFromWatchLater = (item) => {
+      dispatch(removeFromWatchLater(item));
       setVideos(prev => prev.map(prevVideo => prevVideo._id === item._id ? {...prevVideo , watchLater:false} : prevVideo))
     }
 
 
-    const addLikeVideos = async(item) => {
-      const response = await likeVideo(item);
-      videoDispatch({type: 'LIKE_VIDEO' , payload : response});
+    const addLikeVideos = (item) => {
+      dispatch(addVideos(item));
       setVideos(prev => prev.map(prevVideo => prevVideo._id === item._id ? {...prevVideo , isLiked:true , isDisliked:false } : prevVideo))
     }
 
-    const removeLikeVideos = async(item) => {
-      const response = await removeLikeVideo(item);
-      videoDispatch({type: 'DISLIKE_VIDEO' , payload : response});
+    const removeLikeVideos = (item) => {
+      dispatch(removeVideo(item));
       setVideos(prev => prev.map(prevVideo => prevVideo._id === item._id ? {...prevVideo , isLiked:false} : prevVideo))
     }
 
@@ -82,9 +72,9 @@ export function SingleVideo() {
 
     const updatePlayList = async(e, playlistId , videoData) => {
       if(e.target.checked){
-         await addVideoToPlaylist(videoData , playlistId); 
+         dispatch(addVideoToPlaylist({playlistId , video: videoData})) ;
       }else{
-        await removeVideoFromPlaylist(playlistId , videoData._id);       
+         dispatch(removeVideoFromPlaylist({playlistId , video: videoData}))       
       }
     }
     
@@ -98,8 +88,8 @@ export function SingleVideo() {
        height="315" 
        src={`${URL}${video.video_id}`}
        title="YouTube video player" 
-       frameborder="0" 
-       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+       frameBorder="0" 
+       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen>
        </iframe>
        <div className='single-video-title'>{video.title}</div>
        <div className='video-info'> 232434 views - Apr 25, 2022 
@@ -135,11 +125,11 @@ export function SingleVideo() {
            <button className='playlist-btn' onClick={createPlaylist}>Create Playlist</button>
            </div>
            <button className="close-btn dismiss-btn" onClick={closeModal}>X</button>
-           {playlists.map(playlist => (
+           {reduxPlayLists && reduxPlayLists.map(playlist => (
              <div className='playlist-container' key={playlist._id}>
                <input type="checkbox"
                onChange={(e) => updatePlayList(e, playlist._id, video)} />
-               <div>{playlist.title}</div>
+               <div>{playlist.name}</div>
              </div>
            ))}
        </div>
