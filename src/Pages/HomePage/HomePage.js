@@ -1,44 +1,38 @@
-import React , { useState , useEffect }  from 'react';
+import React , { useState }  from 'react';
 import { SideBar, CategoryBar } from '../../components/index';
-import { useVideos , useHistoryContext , useWatchlaterContext , usePlayListContext, useToastContext, useUserAuth } from '../../context/index';
+import { useVideos , useToastContext, useUserAuth } from '../../context/index';
 import './HomePage.css';
 import { Link } from 'react-router-dom';
-import { addVideoInHistory , addToWatchLater, removeFromWatchLater , createPlayList , addVideoToPlaylist , removeVideoFromPlaylist, getPlayList } from '../../api-calls/api-calls';
+import { useDispatch, useSelector } from 'react-redux';
+import { addVideoToHistory } from '../../store/historyVideoSlice';
+import { addPlaylist , addVideoToPlaylist , removeVideoFromPlaylist } from '../../store/playlistsSlice';
+import { addToWatchLater , removeFromWatchLater } from '../../store/watchLaterSlice';
 
 export function HomePage() {
-  const { historyVideosDispatch } = useHistoryContext();
-  const { watchLaterDispatch } = useWatchlaterContext();
+  const dispatch = useDispatch();
   const { filteredVideos , setFilteredVideos , setVideos } = useVideos();
   const [showModal , setShowModal ] = useState(false);
   const [playlistName , setPlaylistName ] = useState('');
-  const { playListState , playListDispatch } = usePlayListContext();
   const { isLogIn } = useUserAuth();
   const notify = useToastContext();
-  const [playlists , setPlaylists] = useState([]);
-    const data = async() => {
-      const getData = await getPlayList();
-      if(getData.playlist.data.playlists !== undefined){
-        setPlaylists(getData.playlist.data.playlists);
-      }
-      }
-    
-      useEffect(() => {
-        data();
-      },[playListState]);
+  
+
+  const reduxPlayLists = useSelector(state => state.playlists);
+
+  
 
 
-  const updatePlayList = async(e, playlistId , videoData) => {
+  const updatePlayList = async(e, playlistId , video) => {
     if(e.target.checked){
-       await addVideoToPlaylist(videoData , playlistId); 
+       dispatch(addVideoToPlaylist({playlistId , video})) ;
     }else{
-      await removeVideoFromPlaylist(playlistId , videoData._id);       
+       dispatch(removeVideoFromPlaylist({playlistId , video}))       
     }
   }
 
   const createPlaylist = async() => {
     if(playlistName){
-      const response = await createPlayList(playlistName);
-      playListDispatch({type : 'NEW_PLAYLIST', payload: response})
+      dispatch(addPlaylist(playlistName));
     }else{
       notify('Please Enter Playlist Name!',{type:'warning'})
     }
@@ -49,42 +43,35 @@ export function HomePage() {
     setShowModal(false);
   }
 
-  const showPlaylistModal = (id) => {
+
+
+  const addVideoToWatchLater = (item) => {
     if(isLogIn){
-    setShowModal(true);
-    toggleBtn(id);
-    }else{
-      notify('Please Login!',{ type:'warning' })
-    }
-  }
-
-
-  const addVideoToHistory = async(video) => {
-    const response = await addVideoInHistory(video);
-    historyVideosDispatch({type:'HISTORY_VIDEO', payload:response});
-  }
-
-  const addVideoToWatchLater = async(item) => {
-    if(isLogIn){
-    const response = await addToWatchLater(item);
-    watchLaterDispatch({type: 'WATCHLATER_VIDEO' , payload : response});
+    dispatch(addToWatchLater(item));
     setVideos(prev => prev.map(prevVideo => prevVideo._id === item._id ? {...prevVideo , watchLater:true} : prevVideo))
     }else{
       notify('Please Login!',{ type:'warning' })
     }
   }
 
-  const removeVideoFromWatchLater = async(item) => {
-    const response = await removeFromWatchLater(item);
-    watchLaterDispatch({type: 'REMOVE_WATCHLATER_VIDEO' , payload : response});
+  const removeVideoFromWatchLater = (item) => {
+    dispatch(removeFromWatchLater(item));
     setVideos(prev => prev.map(prevVideo => prevVideo._id === item._id ? {...prevVideo , watchLater:false} : prevVideo))
   }
   
+  const showPlaylistModal = (id) => {
+    if(isLogIn){
+      setFilteredVideos( prev => prev.map(item => item._id === id ? {...item, toggle: false} : item))
+      setShowModal(true);
+    }else{
+      notify('Please Login!',{ type:'warning' })
+    }
+  }
   
 
 
   const toggleBtn = id => {
-     setFilteredVideos( prev => prev.map(item => item._id === id ? {...item, toggle: !item.toggle} : item))
+     setFilteredVideos( prev => prev.map(item => item._id === id ? {...item, toggle: item.toggle ? false : true} : item))
   }
 
 
@@ -98,7 +85,7 @@ export function HomePage() {
     <div className='videos-container'>
      {filteredVideos.map((video) => (
        <div key={video._id} className='video'>
-         <Link to={`/videos/${video._id}`} onClick={() => addVideoToHistory(video)}><img src={video.image} alt="videoImg" className='video-img' /></Link>
+         <Link to={`/videos/${video._id}`} onClick={() => dispatch(addVideoToHistory(video))}><img src={video.image} alt="videoImg" className='video-img' /></Link>
          <div className='video-info-container'>
          <div className="video-title">{video.title}</div>
          <div className="video-owner">Video by : {video.creator}</div>
@@ -112,8 +99,7 @@ export function HomePage() {
          }
            <div className='video-model-btn' onClick={() => showPlaylistModal(video._id)}><i className="fa-solid fa-list-check"></i> Add To Playlist</div>
 
-         </div>
-         <div className={showModal ? 'playlistModal' : 'hidden'}>
+           <div className={showModal ? 'playlistModal' : 'hidden'}>
            <h2 className='modal-heading'>Create Playlist</h2>
            <div>
            <input 
@@ -126,15 +112,16 @@ export function HomePage() {
            <button className='playlist-btn' onClick={createPlaylist}>Create Playlist</button>
            </div>
            <button className="close-btn dismiss-btn" onClick={closeModal}>X</button>
-           {playlists.map(playlist => (
+           {reduxPlayLists.map(playlist => (
              <div className='playlist-container' key={playlist._id}>
                <input type="checkbox"
-               onChange={(e) => updatePlayList(e, playlist._id, video)} />
-               <div>{playlist.title}</div>
+               onClick={(e) => updatePlayList(e, playlist._id, video)} />
+               <div>{playlist.name}</div>
              </div>
            ))}
        </div>
-       </div>
+         </div>
+       </div> 
      ))}
      </div>
      {/* modal section */} 
