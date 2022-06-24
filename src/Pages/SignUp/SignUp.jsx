@@ -15,6 +15,7 @@ export function SignUp() {
   const {setIsLogIn } = useUserAuth();
   const notify = useToastContext();
   const [showPassword , setShowPassword] = useState(false); 
+  const [hidePassword , setHidePassword] = useState(false); 
 
   const signupHandler = async (e) => {
     e.preventDefault();
@@ -40,6 +41,7 @@ export function SignUp() {
         console.error(err);
       }
     }else{
+      setShowPassword(true);
       notify('Enter Empty Fields',{type:'warning'});
     }
   }
@@ -53,16 +55,29 @@ export function SignUp() {
             <form className="logIn-form">
                 <label htmlFor="first-name" aria-required="true">First Name<span>*</span></label>
                 <input type="text" placeholder='John' name="first-name" required id="first-name" value={name} onChange={ event => setName(event.target.value)}/>
+                {showPassword && name.length<=0
+                ? <p className="error-notice">First Name Can't be Empty!</p>
+                :''}
+                
 
                 <label htmlFor="last-name" aria-required="true"> Last Name<span>*</span></label>
                 <input type="text" placeholder='Cena' name="last-name" required id="last-name" value={lastName} onChange={ event => setLastName(event.target.value)}/>
+                {showPassword && lastName.length<=0
+                ? <p className="error-notice">Last Name Can't be Empty!</p>
+                :''}
 
                 <label htmlFor='login-eamil-input' aria-required="true">E-mail address<span>*</span></label>
                 <input type="email" placeholder='johncena@gmail.com' name="user-email" required id="login-eamil-input" value={email} onChange={ event => setEmail(event.target.value)}/>
+                {showPassword && email.length<=0
+                ? <p className="error-notice">Email Can't be Empty!</p>
+                :''}
 
                 <label htmlFor="login-password" aria-required="true">Password<span>*</span></label>
-                <input className='passwordInput' type={showPassword ? "password" : 'text'} placeholder='********' name="login-password" required id="login-password" value={password} onChange={ event => setPassword(event.target.value)}/> 
-                <i className={ showPassword ? 'bi bi-eye-slash' : 'bi bi-eye'} id="togglePassword" onClick={() => setShowPassword(prev => !prev)}></i>
+                <input className='password-input' type={hidePassword ? "password" : 'text'} placeholder='********' name="login-password" required id="login-password" value={password} onChange={ event => setPassword(event.target.value)}/>
+                {showPassword && password.length<=0
+                ? <p className="error-notice">Password Can't be Empty!</p>
+                :''} 
+                <i className={ hidePassword ? 'bi bi-eye-slash eyeIcon' : 'bi bi-eye eyeIcon'} id="togglePassword" onClick={() => setHidePassword(prev => !prev)}></i>
                 
 
                 <button className="login-btn" type="submit" onClick={(event) => signupHandler(event)}> Sign Up </button>

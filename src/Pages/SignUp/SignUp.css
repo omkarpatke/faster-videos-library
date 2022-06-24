@@ -100,13 +100,13 @@
     color: var(--white-color);
 }
 
-.bi{
-    position: relative;
-    bottom: 2.6rem;
-    left: 16rem;
+.eyeIcon{
+    position: absolute;
+    top: 66.5%;
+    left: 60%;
     font-size: 1.1rem;
 }
 
 .error-notice{
-    margin-top: -2rem;
+    color: red;
 }

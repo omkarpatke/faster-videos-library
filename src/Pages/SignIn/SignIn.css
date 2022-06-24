@@ -100,3 +100,14 @@
 .signIn-with-google-btn:hover{
     background-color: var(--black-color);
 }
+
+.password-input{
+    position: relative;
+}
+
+.eye-icon{
+    position: absolute;
+    top: 44.5%;
+    left: 57.5%;
+    font-size: 1.1rem;
+}
