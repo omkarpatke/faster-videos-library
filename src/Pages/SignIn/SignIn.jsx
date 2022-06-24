@@ -13,7 +13,7 @@ export function SignIn() {
    const { setIsLogIn } = useUserAuth();  
    const notify  = useToastContext();
    const [showPassword , setShowPassword] = useState(false); 
-   const [hidePassword , setHidepassword] = useState(false); 
+   const [hidePassword , setHidepassword] = useState(true); 
 
    const loginHandler = async(e) => {
      e.preventDefault();
