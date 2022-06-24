@@ -1,9 +1,10 @@
 import React from 'react';
 import './WatchLater.css';
-import { SideBar } from '../../components/index';
+import { Navbar, SideBar } from '../../components/index';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { removeFromWatchLater } from '../../store/watchLaterSlice';import { useVideos } from '../../context';
+import { removeFromWatchLater , removeAllVideos  } from '../../store/watchLaterSlice';
+import { useVideos } from '../../context';
 ;
 
 
@@ -19,11 +20,13 @@ export function WatchLater() {
 
   return (
     <div className='page-container'>
+      <Navbar searchBar={false} />
     <SideBar />
     <div className="home-section">
-    <h2>Watch Later Page</h2>
+    <h2>Watch Later Page  <span onClick={() => dispatch(removeAllVideos())} className='delete-btn'>Delete All</span></h2>
     <div className='history-videos'>
-         {watchLaterVideos && watchLaterVideos.map(video => (
+         {watchLaterVideos.length > 0 ?
+          watchLaterVideos.map(video => (
            <div key={video._id} className='video'>
            <Link to={`/videos/${video._id}`}><img src={video.image} alt="videoImg" className='video-img like-video-img' /></Link>
            <div className="dislike-btn" title='Delete History' onClick={() => removeWatchLaterVideos(video)}>X</div>
@@ -32,7 +35,8 @@ export function WatchLater() {
            <div className='video-info'>270k Views |  8 months ago</div>
            </div>
          </div>
-         ))}
+         ))
+        : <h1>No WatchLater Videos</h1>}
       </div>
 
     </div>

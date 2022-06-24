@@ -1,5 +1,5 @@
 import "./App.css";
-import { Navbar, RequiresAuth } from "./components/index";
+import { RequiresAuth } from "./components/index";
 import Mockman from "mockman-js";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -13,7 +13,7 @@ import { PlayListVideos } from "./Pages/PlayListVideos/PlayListVideos";
 function App() {
   return (
     <div className="App">
-      <Navbar />
+      {/* <Navbar searchBar={true} /> */}
       <Routes>
         <Route path='/' element={<HomePage/>} />
         <Route path='/login' element={<SignIn />} />

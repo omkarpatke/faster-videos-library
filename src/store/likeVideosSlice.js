@@ -10,9 +10,13 @@ const likeVideosSlice = createSlice({
 
         removeVideo(state, action){
             return [...state.filter(item => item._id !== action.payload._id)]; 
-        }  
+        },
+        
+        removeAllVideos(state){
+            return [...state.filter(item => item._id === '1234')]; 
+        }
     }
 })
 
-export const { addVideos , removeVideo } = likeVideosSlice.actions;
+export const { addVideos , removeVideo, removeAllVideos } = likeVideosSlice.actions;
 export default likeVideosSlice.reducer;

@@ -10,9 +10,13 @@ const watchLaterSlice = createSlice({
 
         removeFromWatchLater(state, action){
             return [...state.filter(item => item._id !== action.payload._id)]; 
-        }  
+        },
+        
+        removeAllVideos(state){
+            return [...state.filter(item => item._id === '1234')]; 
+        }
     }
 })
 
-export const { addToWatchLater , removeFromWatchLater } = watchLaterSlice.actions;
+export const { addToWatchLater , removeFromWatchLater, removeAllVideos } = watchLaterSlice.actions;
 export default watchLaterSlice.reducer;

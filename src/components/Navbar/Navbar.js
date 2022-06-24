@@ -4,7 +4,7 @@ import './Navbar.css';
 import { useUserAuth, useToastContext, useVideos } from '../../context/index';
 
 
-export function Navbar() {
+export function Navbar(props) {
   const { isLogIn , setIsLogIn }  = useUserAuth();
   const { videoDispatch } = useVideos();
   
@@ -21,10 +21,13 @@ export function Navbar() {
     <>
     <nav className="navbar">
         <Link to='/' className="brand-logo">Faster Videos</Link>
-        <input type="search" name="search" id="search" onChange={e => videoDispatch({type:"USER_SEARCHED_VIDEOS" , payload:e.target.value})} className='search-input'></input>
+        {props.searchBar
+        ? <input type="search" name="search" id="search" onChange={e => videoDispatch({type:"USER_SEARCHED_VIDEOS" , payload:e.target.value})} className='search-input'></input>
+        : null
+         }
         <i className="search-icon lni lni-search-alt" title='Search'></i>
         {isLogIn 
-        ? <div className="logout-btn" onClick={logoutHandler}>logout</div>
+        ? <div className="logout-btn" onClick={logoutHandler}>Logout</div>
         : <Link className="login-link" to='/login'>Login</Link>
         }
     </nav>

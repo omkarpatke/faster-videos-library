@@ -20,9 +20,13 @@ const playlistsSlice = createSlice({
 
         removeVideoFromPlaylist(state , action){
             return [...state.map(item => item._id === action.payload.playListId ? {...item , videos: item.videos.filter(video => video._id !== action.payload.video._id) } : item)];
+        },
+
+        removeAllVideos(state){
+            return [...state.filter(item => item._id === '1234')]; 
         }
     }
 })
 
-export const { addPlaylist , removePlayList, addVideoToPlaylist, removeVideoFromPlaylist} = playlistsSlice.actions;
+export const { addPlaylist , removePlayList, addVideoToPlaylist, removeVideoFromPlaylist , removeAllVideos} = playlistsSlice.actions;
 export default playlistsSlice.reducer;

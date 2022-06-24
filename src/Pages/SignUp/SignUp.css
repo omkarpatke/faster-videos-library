@@ -99,3 +99,14 @@
     background-color: var(--black-color);
     color: var(--white-color);
 }
+
+.bi{
+    position: relative;
+    bottom: 2.6rem;
+    left: 16rem;
+    font-size: 1.1rem;
+}
+
+.error-notice{
+    margin-top: -2rem;
+}
