@@ -15,7 +15,6 @@ export function SignUp() {
   const {setIsLogIn } = useUserAuth();
   const notify = useToastContext();
   const [showPassword , setShowPassword] = useState(false); 
-  const [hidePassword , setHidePassword] = useState(true); 
 
   const signupHandler = async (e) => {
     e.preventDefault();
@@ -71,14 +70,13 @@ export function SignUp() {
                 {showPassword && email.length<=0
                 ? <p className="error-notice">Email Can't be Empty!</p>
                 :''}
-
+                <div className='password-input-container'>
                 <label htmlFor="login-password" aria-required="true">Password<span>*</span></label>
-                <input className='password-input' type={hidePassword ? "password" : 'text'} placeholder='********' name="login-password" required id="login-password" value={password} onChange={ event => setPassword(event.target.value)}/>
+                <input className='password-input' type={"password"} placeholder='********' name="login-password" required id="login-password" value={password} onChange={ event => setPassword(event.target.value)}/>
                 {showPassword && password.length<=0
                 ? <p className="error-notice">Password Can't be Empty!</p>
                 :''} 
-                <i className={ hidePassword ? 'bi bi-eye-slash eyeIcon' : 'bi bi-eye eyeIcon'} id="togglePassword" onClick={() => setHidePassword(prev => !prev)}></i>
-                
+                </div>
 
                 <button className="login-btn" type="submit" onClick={(event) => signupHandler(event)}> Sign Up </button>
             </form>

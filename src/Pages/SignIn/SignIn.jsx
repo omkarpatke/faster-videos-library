@@ -12,7 +12,6 @@ export function SignIn() {
    const [password , setPassword] = useState('');
    const { setIsLogIn } = useUserAuth();  
    const notify  = useToastContext();
-   const [showPassword , setShowPassword] = useState(false); 
    const [hidePassword , setHidepassword] = useState(true); 
 
    const loginHandler = async(e) => {
@@ -35,7 +34,6 @@ export function SignIn() {
         notify("The email you entered is not Registered. Please SignUp!",{type:'warning'});
       }
      }else{
-      setShowPassword(true);
       notify('Enter Empty Fields',{type:'warning'});
      }
 
@@ -56,15 +54,9 @@ export function SignIn() {
             <form className="logIn-form" onSubmit={loginHandler}>
             <label htmlFor='login-eamil-input' aria-required="true">E-mail address<span>*</span></label>
                 <input type="email" placeholder='johncena@gmail.com' name="user-email" required id="login-eamil-input" value={email} onChange={ event => setEmail(event.target.value)}/>
-                {showPassword && email.length<=0
-                ? <p className="error-notice">Email Can't be Empty!</p>
-                :''}
 
                 <label htmlFor="login-password" aria-required="true">Password<span>*</span></label>
                 <input className='password-input' type={hidePassword ? "password" : 'text'} placeholder='********' name="login-password" required id="login-password" value={password} onChange={ event => setPassword(event.target.value)}/>
-                {showPassword && password.length<=0
-                ? <p className="error-notice">Password Can't be Empty!</p>
-                :''} 
                 <i className={ hidePassword ? 'bi bi-eye-slash eye-icon' : 'bi bi-eye eye-icon'} id="togglePassword" onClick={() => setHidepassword(prev => !prev)}></i>
 
 
