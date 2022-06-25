@@ -100,11 +100,15 @@
     color: var(--white-color);
 }
 
+#login-password{
+    position: relative;
+}
+
 .eyeIcon{
     position: absolute;
-    top: 66.5%;
+    /* top: 66.5%;
     left: 57.5%;
-    font-size: 1.1rem;
+    font-size: 1.1rem; */
 }
 
 .error-notice{

@@ -87,7 +87,7 @@ export function HomePage() {
     <div className='videos-container'>
      {filteredVideos.map((video) => (
        <div key={video._id} className='video'>
-         <Link to={`/videos/${video._id}`} onClick={() => dispatch(addVideoToHistory(video))}><img src={video.image} alt="videoImg" className='video-img' /></Link>
+         <Link to={`/videos/${video._id}`} onClick={() => isLogIn ? dispatch(addVideoToHistory(video)) : ''}><img src={video.image} alt="videoImg" className='video-img' /></Link>
          <div className='video-info-container'>
          <div className="video-title">{video.title}</div>
          <div className="video-owner">Video by : {video.creator}</div>
