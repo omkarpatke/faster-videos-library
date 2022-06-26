@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { SideBar } from '../../components'
+import { Navbar, SideBar } from '../../components'
 import { useDispatch, useSelector } from 'react-redux';
 import { removeVideoFromPlaylist } from '../../store/playlistsSlice';
 
@@ -12,6 +12,7 @@ export  function PlayListVideos() {
 
   return (
     <div className='page-container'>
+      <Navbar searchBar={false} />
     <SideBar />
     <div className="home-section">
     <div className='play-lists'>

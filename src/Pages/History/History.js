@@ -1,6 +1,6 @@
 import React from 'react';
 import './History.css';
-import { SideBar } from '../../components/index';
+import { Navbar, SideBar } from '../../components/index';
 import { Link } from 'react-router-dom';
 import { removeAllVideosFromHistory , removeVideoFromHistory } from '../../store/historyVideoSlice';
 import { useDispatch , useSelector } from 'react-redux';
@@ -12,12 +12,14 @@ export function History() {
     
   return (
     <div className='page-container'>
+      <Navbar searchBar={false} />
     <SideBar />
     <div className="home-section">
     <div className='history-page-container'>
       <h2 className='heading'>History Videos <span onClick={() => dispatch(removeAllVideosFromHistory())} className='delete-btn'>Delete All</span></h2>
       <div className='history-videos'>
-         {historyVideos.map(video => (
+         {historyVideos.length > 0 
+         ? historyVideos.map(video => (
            <div key={video._id} className='video'>
            <Link to={`/videos/${video._id}`}><img src={video.image} alt="videoImg" className='video-img like-video-img' /></Link>
            <div className="dislike-btn" title='Delete History' onClick={() => dispatch(removeVideoFromHistory(video))}>X</div>
@@ -26,7 +28,8 @@ export function History() {
            <div className='video-info'>270k Views |  8 months ago</div>
            </div>
          </div>
-         ))}
+         ))
+        : <h1>No History Videos</h1>}
       </div>
     </div>
     </div>

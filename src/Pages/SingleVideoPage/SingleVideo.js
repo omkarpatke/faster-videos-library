@@ -1,7 +1,7 @@
 import React , { useState } from 'react';
 import { useDispatch , useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { SideBar } from '../../components';
+import { Navbar, SideBar } from '../../components';
 import { useToastContext, useVideos } from '../../context';
 import './SingleVideo.css';
 import  { removeVideo , addVideos }  from '../../store/likeVideosSlice';
@@ -62,8 +62,8 @@ export function SingleVideo() {
     }
 
     const addDisLikeVideos = (item) => {
-      setVideos(prev => prev.map(prevVideo => prevVideo._id === item._id ? {...prevVideo , isDisliked:true , isLiked:false} : prevVideo))
-
+      removeLikeVideos(item);
+      setVideos(prev => prev.map(prevVideo => prevVideo._id === item._id ? {...prevVideo , isDisliked:true , isLiked:false} : prevVideo));
     }
 
     const removeDisLikeVideos = (item) => {
@@ -73,14 +73,17 @@ export function SingleVideo() {
     const updatePlayList = async(e, playlistId , videoData) => {
       if(e.target.checked){
          dispatch(addVideoToPlaylist({playlistId , video: videoData})) ;
+         notify('Added Video In Playlist' , {type :'success'})
       }else{
-         dispatch(removeVideoFromPlaylist({playlistId , video: videoData}))       
+         dispatch(removeVideoFromPlaylist({playlistId , video: videoData})) ;
+         notify('Removed Video From Playlist' , {type :'success'});        
       }
     }
     
   return (
     <>
     <div className="single-video-page-container">
+    <Navbar searchBar={false} />
        <SideBar />
        <div className="video-card">
        <iframe className='embeded-video'

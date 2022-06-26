@@ -1,5 +1,5 @@
 import React , { useState }  from 'react';
-import { SideBar, CategoryBar } from '../../components/index';
+import { SideBar, CategoryBar, Navbar } from '../../components/index';
 import { useVideos , useToastContext, useUserAuth } from '../../context/index';
 import './HomePage.css';
 import { Link } from 'react-router-dom';
@@ -25,8 +25,10 @@ export function HomePage() {
   const updatePlayList = async(e, playlistId , video) => {
     if(e.target.checked){
        dispatch(addVideoToPlaylist({playlistId , video})) ;
+       notify('Added Video In Playlist' , {type :'success'});
     }else{
-       dispatch(removeVideoFromPlaylist({playlistId , video}))       
+       dispatch(removeVideoFromPlaylist({playlistId , video}));
+       notify('Removed Video From Playlist' , {type :'success'});       
     }
   }
 
@@ -38,12 +40,6 @@ export function HomePage() {
     }
     setPlaylistName('');
   }
-
-  const closeModal = () => {
-    setShowModal(false);
-  }
-
-
 
   const addVideoToWatchLater = (item) => {
     if(isLogIn){
@@ -58,26 +54,30 @@ export function HomePage() {
     dispatch(removeFromWatchLater(item));
     setVideos(prev => prev.map(prevVideo => prevVideo._id === item._id ? {...prevVideo , watchLater:false} : prevVideo))
   }
-  
-  const showPlaylistModal = (id) => {
-    if(isLogIn){
-      setFilteredVideos( prev => prev.map(item => item._id === id ? {...item, toggle: false} : item))
-      setShowModal(true);
-    }else{
-      notify('Please Login!',{ type:'warning' })
-    }
-  }
-  
-
 
   const toggleBtn = id => {
-     setFilteredVideos( prev => prev.map(item => item._id === id ? {...item, toggle: item.toggle ? false : true} : item))
+     setFilteredVideos( prev => prev.map(item => item._id === id ? {...item, toggle: item.toggle ? false : true} : {...item , toggle : false}))
+  }
+
+  const closeModal = () => {
+    setShowModal(false);
+    setFilteredVideos( prev => prev.map(item => item.toggle ? {...item, toggle: false } : item));
+  }
+
+  const showPlaylistModal = (id) => {
+    if(isLogIn){
+      setShowModal(true);
+    }else{
+      notify('Please Login!',{ type:'warning' });
+      toggleBtn(id);
+    }
   }
 
 
 
   return (
     <div className='page-container'>
+      <Navbar searchBar={true} />
     <SideBar />
     <div className="home-section">
     <CategoryBar />
@@ -85,11 +85,11 @@ export function HomePage() {
     <div className='videos-container'>
      {filteredVideos.map((video) => (
        <div key={video._id} className='video'>
-         <Link to={`/videos/${video._id}`} onClick={() => dispatch(addVideoToHistory(video))}><img src={video.image} alt="videoImg" className='video-img' /></Link>
+         <Link to={`/videos/${video._id}`} onClick={() => isLogIn ? dispatch(addVideoToHistory(video)) : ''}><img src={video.image} alt="videoImg" className='video-img' /></Link>
          <div className='video-info-container'>
          <div className="video-title">{video.title}</div>
          <div className="video-owner">Video by : {video.creator}</div>
-         <div className='video-info'>270k Views |  8 months ago  <span className='options'><i className="fa-solid fa-ellipsis-vertical options-icon" onClick={() => toggleBtn(video._id)}></i></span></div>
+         <div className='video-info'>{video.views}k Views |  {video.upload}  <span className='options'><i className="fa-solid fa-ellipsis-vertical options-icon" onClick={() => toggleBtn(video._id)}></i></span></div>
          </div>
          <div className='video-model-btns' id={video.toggle ? 'visible' : 'hidden' }>
          {
@@ -111,7 +111,7 @@ export function HomePage() {
 
            <button className='playlist-btn' onClick={createPlaylist}>Create Playlist</button>
            </div>
-           <button className="close-btn dismiss-btn" onClick={closeModal}>X</button>
+           <button className="close-btn dismiss-btn" onClick={() => closeModal()}><i class="lni lni-close"></i></button>
            {reduxPlayLists.map(playlist => (
              <div className='playlist-container' key={playlist._id}>
                <input type="checkbox"

@@ -73,11 +73,13 @@
      background-color: var(--white-color);
      padding: 1rem;
      z-index: 999;
+     box-shadow: 1px 1px 500px 0px;
  }
 
  .close-btn{
-     position: relative;
-     bottom: 5rem;
+    position: relative;
+    bottom: 7rem;
+    font-size: 1.1rem;
  }
 
  .modal-input{

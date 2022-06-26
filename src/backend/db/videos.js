@@ -13,9 +13,9 @@ export const videos = [
     creator: "Harry Bhai",
     watchLater: false,
     isLiked: false,
-
     isDisLike:false,
-
+    views: 90,
+    upload: '8 months ago',
     toggle: false,
 
   },
@@ -33,7 +33,8 @@ export const videos = [
     isLiked: false,
 
     isDisLike:false,
-
+    views: 12,
+    upload: '1 year ago',
     toggle: false,
 
   },
@@ -49,9 +50,9 @@ export const videos = [
     creator: "Quick Support",
     watchLater: false,
     isLiked: false,
-
     isDisLike:false,
-
+    views: 45,
+    upload: '1 months ago',
     toggle: false,
 
   },
@@ -68,7 +69,8 @@ export const videos = [
     watchLater: false,
     isLiked: false,
     isDisLike:false,
-
+    views: 23,
+    upload: '7 months ago',
     toggle: false,
 
   },
@@ -84,11 +86,10 @@ export const videos = [
     creator: "Tech Gun",
     watchLater: false,
     isLiked: false,
-
     isDisLike:false,
-
+    views: 76,
+    upload: '8 months ago',
     toggle: false,
-
   },
   {
     _id: uuid(),
@@ -104,6 +105,8 @@ export const videos = [
     isLiked: false,
 
     isDisLike:false,
+    views: 34,
+    upload: '3 months ago',
 
     toggle: false,
 
@@ -122,6 +125,8 @@ export const videos = [
     isLiked: false,
 
     isDisLike:false,
+    views: 64,
+    upload: '2 years ago',
 
     toggle: false,
 
@@ -140,6 +145,8 @@ export const videos = [
     isLiked: false,
 
     isDisLike:false,
+    views: 12,
+    upload: '1 months ago',
 
     toggle: false,
 
@@ -158,6 +165,8 @@ export const videos = [
     isLiked: false,
 
     isDisLike:false,
+    views: 78,
+    upload: '9 months ago',
 
     toggle: false,
 
@@ -176,6 +185,8 @@ export const videos = [
     isLiked: false,
 
     isDisLike:false,
+    views: 75,
+    upload: '1 years ago',
 
     toggle: false,
 
@@ -194,6 +205,8 @@ export const videos = [
     isLiked: false,
 
     isDisLike:false,
+    views: 51,
+    upload: '4 months ago',
 
     toggle: false,
 
@@ -212,6 +225,8 @@ export const videos = [
     isLiked: false,
 
     isDisLike:false,
+    views: 79,
+    upload: '11 months ago',
 
     toggle: false,
 
