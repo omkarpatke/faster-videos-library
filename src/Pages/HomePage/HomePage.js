@@ -41,12 +41,6 @@ export function HomePage() {
     setPlaylistName('');
   }
 
-  const closeModal = () => {
-    setShowModal(false);
-  }
-
-
-
   const addVideoToWatchLater = (item) => {
     if(isLogIn){
     dispatch(addToWatchLater(item));
@@ -65,10 +59,14 @@ export function HomePage() {
      setFilteredVideos( prev => prev.map(item => item._id === id ? {...item, toggle: item.toggle ? false : true} : {...item , toggle : false}))
   }
 
+  const closeModal = () => {
+    setShowModal(false);
+    setFilteredVideos( prev => prev.map(item => item.toggle ? {...item, toggle: false } : item));
+  }
+
   const showPlaylistModal = (id) => {
     if(isLogIn){
       setShowModal(true);
-      toggleBtn(id);
     }else{
       notify('Please Login!',{ type:'warning' });
       toggleBtn(id);
@@ -113,7 +111,7 @@ export function HomePage() {
 
            <button className='playlist-btn' onClick={createPlaylist}>Create Playlist</button>
            </div>
-           <button className="close-btn dismiss-btn" onClick={closeModal}><i class="lni lni-close"></i></button>
+           <button className="close-btn dismiss-btn" onClick={() => closeModal()}><i class="lni lni-close"></i></button>
            {reduxPlayLists.map(playlist => (
              <div className='playlist-container' key={playlist._id}>
                <input type="checkbox"
