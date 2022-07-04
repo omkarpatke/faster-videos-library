@@ -23,7 +23,7 @@ function App() {
         <Route path='/watch-later' element={<RequiresAuth><WatchLater /></RequiresAuth>} />
         <Route path='/playlist' element={<RequiresAuth><PlayList /></RequiresAuth>} />
         <Route path='/playlist/:playListVideosId' element={<RequiresAuth><PlayListVideos /></RequiresAuth>} />
-        <Route path='/videos/:videoId' exact element={<RequiresAuth><SingleVideo /></RequiresAuth>} />
+        <Route path='/videos/:videoId' exact element={<SingleVideo />} />
         <Route path='/mock' element={<Mockman />} />
       </Routes>
       <ToastContainer 

@@ -2,7 +2,7 @@ import React , { useState } from 'react';
 import { useDispatch , useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { Navbar, SideBar } from '../../components';
-import { useToastContext, useVideos } from '../../context';
+import { useToastContext, useUserAuth, useVideos } from '../../context';
 import './SingleVideo.css';
 import  { removeVideo , addVideos }  from '../../store/likeVideosSlice';
 import { addToWatchLater , removeFromWatchLater } from '../../store/watchLaterSlice';
@@ -16,7 +16,7 @@ export function SingleVideo() {
     const { videos , setVideos } = useVideos();
     const video  = videos.find( item => item._id === videoId );
     const notify = useToastContext();
-
+    const { isLogIn } = useUserAuth();
     const dispatch = useDispatch();
     const reduxPlayLists = useSelector(state => state.playlists);
 
@@ -30,40 +30,65 @@ export function SingleVideo() {
     }
 
     const createPlaylist = async() => {
-      if(playlistName){
-        dispatch(addPlaylist(playlistName));
-      }else{
-        notify('Please Enter Playlist Name!',{type:'warning'})
-      }
+      if(isLogIn){
+        if(playlistName){
+          dispatch(addPlaylist(playlistName));
+        }else{
+          notify('Please Enter Playlist Name!',{type:'warning'})
+        }
+        }else{
+          notify('Please Login!',{ type:'warning' })
+        }
       setPlaylistName('');
     }
 
     
 
     const addVideoToWatchLater = (item) => {
-      dispatch(addToWatchLater(item));
-      setVideos(prev => prev.map(prevVideo => prevVideo._id === item._id ? {...prevVideo , watchLater:true} : prevVideo))
+      if(isLogIn){
+        dispatch(addToWatchLater(item));
+        setVideos(prev => prev.map(prevVideo => prevVideo._id === item._id ? {...prevVideo , watchLater:true} : prevVideo))
+        }else{
+          notify('Please Login!',{ type:'warning' })
+        }
     }
 
     const removeVideoFromWatchLater = (item) => {
-      dispatch(removeFromWatchLater(item));
+      if(isLogIn){
+        dispatch(removeFromWatchLater(item));
       setVideos(prev => prev.map(prevVideo => prevVideo._id === item._id ? {...prevVideo , watchLater:false} : prevVideo))
+        }else{
+          notify('Please Login!',{ type:'warning' })
+        }
     }
 
 
     const addLikeVideos = (item) => {
-      dispatch(addVideos(item));
-      setVideos(prev => prev.map(prevVideo => prevVideo._id === item._id ? {...prevVideo , isLiked:true , isDisliked:false } : prevVideo))
+      if(isLogIn){
+        dispatch(addVideos(item));
+        setVideos(prev => prev.map(prevVideo => prevVideo._id === item._id ? {...prevVideo , isLiked:true , isDisliked:false } : prevVideo))
+        }else{
+          notify('Please Login!',{ type:'warning' })
+        }
+      
     }
 
     const removeLikeVideos = (item) => {
-      dispatch(removeVideo(item));
+      if(isLogIn){
+        dispatch(removeVideo(item));
       setVideos(prev => prev.map(prevVideo => prevVideo._id === item._id ? {...prevVideo , isLiked:false} : prevVideo))
+        }else{
+          notify('Please Login!',{ type:'warning' })
+        }
     }
 
     const addDisLikeVideos = (item) => {
-      removeLikeVideos(item);
-      setVideos(prev => prev.map(prevVideo => prevVideo._id === item._id ? {...prevVideo , isDisliked:true , isLiked:false} : prevVideo));
+      if(isLogIn){
+        removeLikeVideos(item);
+        setVideos(prev => prev.map(prevVideo => prevVideo._id === item._id ? {...prevVideo , isDisliked:true , isLiked:false} : prevVideo));
+        }else{
+          notify('Please Login!',{ type:'warning' })
+        }
     }
 
     const removeDisLikeVideos = (item) => {
